@@ -1,10 +1,12 @@
 
 <h1>Events all</h1>
-
+<% if user_signed_in? %>
+<%= button_to "Create event", new_user_event_path(@user), method: :get%>
+<% end %>
 <ul>
-  <% @events.each do |event| %>
+  <% @user.created_events.each do |event| %>
     <li>
-      <%= link_to event.title, event %>
+      <%= link_to "#{event.title} #{event.created_at}", edit_user_event_path(@user, event)%>
     </li>
   <% end %>
 </ul>
