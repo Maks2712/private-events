@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   end
 
   def user_params 
-    params.require(:user).permit(:name, :id)
+    params.require(:user).permit(:name, :id,:attended_event_ids => [])
   end
-
+ 
 end
