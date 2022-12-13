@@ -1,18 +1,19 @@
 class EventsController < ApplicationController
   #before_action :event_params
  before_action :set_user
- before_action :set_event, only: %i[update show destroy edit]
+ before_action :set_event, only: %i[update destroy edit]
 
   def new
     @event=Event.new
   end
 
   def index
-    @events=@user.created_events.all
+    @events= @user.created_events.all
+    @all_events=Event.all
   end
 
   def show
-    
+    @event=Event.find(params[:id])
   end
 
   def create

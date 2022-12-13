@@ -1,6 +1,7 @@
 class EventListsController < ApplicationController
-   def join_event
-   end
-   def leave_event
+   
+   private
+   def eventlist_params
+      params.require(:event_list).permit(:attended_event_id, :attendee_id)
    end
 end
