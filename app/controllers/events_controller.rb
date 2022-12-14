@@ -2,6 +2,7 @@ class EventsController < ApplicationController
   #before_action :event_params
  before_action :set_user
  before_action :set_event, only: %i[update destroy edit]
+ before_action :already_joined?, only: %i[show]
 
   def new
     @event=Event.new
@@ -14,6 +15,8 @@ class EventsController < ApplicationController
 
   def show
     @event=Event.find(params[:id])
+    @attendees=@event.attendees.all
+    @name=User.find(@event.creator_id).name
   end
 
   def create
@@ -40,7 +43,7 @@ class EventsController < ApplicationController
 		flash[:notice] = "Event successfully deleted."
 		redirect_to user_events_path
 	end
-
+ 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
@@ -56,4 +59,11 @@ class EventsController < ApplicationController
     
    # params.require(:event).permit(:data)
     end
+    def already_joined?
+      @event=
+      if (Event.(current_user.id))
+      @is_joined=false
+
+    end
+   
 end

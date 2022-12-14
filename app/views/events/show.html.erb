@@ -1,9 +1,24 @@
    <p>
-   <%= "#{@event.title}"      %>
+   <%= "Event title: #{@event.title}"%>
    </p>
     <p>
-   <%= "#{@event.creator_id} author" %>
+   <%= "Creator: #{@name}" %>
    </p>
     <p>
-   <%= "#{@event.date}"       %>
+   <%= "Date: #{@event.date}"%>
    </p>
+
+   Participants:
+
+   <% @attendees.each do |attendee| %>
+    <li>
+      <%= attendee.name%>
+    </li>
+   <% end %>
+
+<% if @is_joined %>
+<%= button_to "Leave event", 'root'%>
+<% else %>
+<%= button_to "Join event", 'root'%>
+<% end %>
+

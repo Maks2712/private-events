@@ -46,12 +46,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_11_083940) do
     t.bigint "attended_event_id"
     t.index ["attended_event_id"], name: "index_users_on_attended_event_id"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true 
   end
 
   add_foreign_key "event_lists", "events", column: "attended_event_id"
   add_foreign_key "event_lists", "users", column: "attendee_id"
-  add_foreign_key "events", "users", column: "attendee_id"
+  add_foreign_key "events", "users", column: "attendee_id", unique: true #check it
   add_foreign_key "events", "users", column: "creator_id"
-  add_foreign_key "users", "events", column: "attended_event_id"
+  add_foreign_key "users", "events", column: "attended_event_id", unique: true #check it
 end
