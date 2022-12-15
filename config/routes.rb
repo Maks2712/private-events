@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     resources :events
   end
   resources :events, only: %i[index]
+  post 'events/join' => 'events#join_event'
+  post 'events/leave' => 'events#leave_event'
   root "events#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # Defines the root path route ("/")

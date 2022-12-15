@@ -17,8 +17,8 @@
    <% end %>
 
 <% if @is_joined %>
-<%= button_to "Leave event", 'root'%>
+<%= button_to "Leave event", events_leave_path%>
 <% else %>
-<%= button_to "Join event", 'root'%>
+<%= button_to "Join event", events_join_path%>
 <% end %>
 

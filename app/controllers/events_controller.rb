@@ -43,7 +43,11 @@ class EventsController < ApplicationController
 		flash[:notice] = "Event successfully deleted."
 		redirect_to user_events_path
 	end
- 
+  def join_event
+    render 'create'
+  end
+  def leave_event
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
@@ -56,14 +60,12 @@ class EventsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
      params.require(:event).permit(:id, :title, :date, :creator_id, :attendee_ids => [])
-    
-   # params.require(:event).permit(:data)
+      # params.require(:event).permit(:data)
     end
     def already_joined?
-      @event=
-      if (Event.(current_user.id))
+      # if (Event.(current_user.id))
       @is_joined=false
-
+      #end
     end
-   
+    
 end
