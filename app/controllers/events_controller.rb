@@ -14,9 +14,13 @@ class EventsController < ApplicationController
   end
 
   def show
+    @is_joined=false
     @event=Event.find(params[:id])
     @attendees=@event.attendees.all
     @name=User.find(@event.creator_id).name
+    if(@event.attendees.include?(User.find(current_user.id)))
+      @is_joined=true
+    end
   end
 
   def create
@@ -27,7 +31,7 @@ class EventsController < ApplicationController
 			redirect_to user_events_path(@user)	
 		else
 			flash[:alert]='Event isnt created!'
-			redirect_to user_events_path	
+			redirect_to user_events_path()	
 		end
   end
   def edit
@@ -44,9 +48,20 @@ class EventsController < ApplicationController
 		redirect_to user_events_path
 	end
   def join_event
-    render 'create'
+   @event=Event.find(params[:id])
+   @user=current_user
+   #@event.attendees.build(attended_event_id: @event.id)
+   @event.attendees<<User.find(@user.id)
+    flash[:notice] = "Successfully joined."
+		redirect_to user_events_path(current_user)
   end
   def leave_event
+    @event=Event.find(params[:id])
+    @user=current_user
+    #@event.attendees.build(attended_event_id: @event.id)
+    @event.attendees.delete(User.find(@user.id))
+    flash[:notice] = "Successfully left."
+		redirect_to user_events_path(current_user)
   end
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -63,9 +78,11 @@ class EventsController < ApplicationController
       # params.require(:event).permit(:data)
     end
     def already_joined?
-      # if (Event.(current_user.id))
       @is_joined=false
-      #end
+      @event=Event.find(params[:id])
+      if(@event.attendees.include?(User.find(current_user.id)))
+        is_joined=true
+      end
+      @is_joined
     end
-    
 end

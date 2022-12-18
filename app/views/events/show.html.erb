@@ -17,8 +17,8 @@
    <% end %>
 
 <% if @is_joined %>
-<%= button_to "Leave event", events_leave_path%>
+<%= button_to "Leave event", leave_event_user_event_path%>
 <% else %>
-<%= button_to "Join event", events_join_path%>
+<%= button_to "Join event", join_event_user_event_path(@attendees)%>
 <% end %>
 
