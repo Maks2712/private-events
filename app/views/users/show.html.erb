@@ -1,9 +1,17 @@
 <h1><%= @user.email%></h1>
 <p>Find me in app/views/users/show.html.erb</p>
 
-
+<h2>Created events</h2>
 <ul>
   <% @events.each do |event| %>
+    <li>
+      <%= link_to event.title, events_path(@user) %>
+    </li>
+  <% end %>
+</ul>
+<h2>Attended events</h2>
+<ul>
+  <% @attended_events.each do |event| %>
     <li>
       <%= link_to event.title, events_path(@user) %>
     </li>

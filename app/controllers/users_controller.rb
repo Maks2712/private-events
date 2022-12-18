@@ -5,8 +5,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user=current_user
-    @events=Event.where(creator_id: current_user.id)
+   # @user=current_user
+    @events=Event.where(creator_id: @user.id)
+    @attended_events=Event.where(attendee_id: @user.id)
   end
 
   private
