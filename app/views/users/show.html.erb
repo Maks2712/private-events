@@ -13,7 +13,7 @@
 <ul>
   <% @attended_events.each do |event| %>
     <li>
-      <%= link_to event.title, events_path(@user) %>
+      <%= link_to event.title %>
     </li>
   <% end %>
 </ul>
