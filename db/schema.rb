@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_11_083940) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_04_141425) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,13 +24,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_11_083940) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "title"
     t.bigint "creator_id"
-    t.bigint "attendee_id"
-    t.index ["attendee_id"], name: "index_events_on_attendee_id"
+    t.datetime "date"
     t.index ["creator_id"], name: "index_events_on_creator_id"
   end
 
@@ -42,16 +40,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_11_083940) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name", default: "", null: false
-    t.bigint "attended_event_id"
-    t.index ["attended_event_id"], name: "index_users_on_attended_event_id"
+    t.string "name"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true 
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "event_lists", "events", column: "attended_event_id"
   add_foreign_key "event_lists", "users", column: "attendee_id"
-  add_foreign_key "events", "users", column: "attendee_id", unique: true #check it
   add_foreign_key "events", "users", column: "creator_id"
-  add_foreign_key "users", "events", column: "attended_event_id", unique: true #check it
 end
